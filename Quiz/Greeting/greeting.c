@@ -2,8 +2,7 @@
 
 int main() {
 	char ans[201];
-	scanf("%[^\n]%*c", ans);
+	scanf("%[^\n]", ans);
 	printf("Hello, %s!", ans);
 	return 0;
 }
-
