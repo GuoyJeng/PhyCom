@@ -2,22 +2,27 @@
 #include <ctype.h>
 
 int main() {
-    char str[205], check[27] = "abxypqrmncedkljoshtufvzgwi";
-    
-    if (scanf("%[^\n]", str) == 1) {
-        for (int i = 0; str[i] != '\0'; i++) {
-            for (int j = 0; check[j] != '\0'; j++) {
-                if (str[i] == toupper(check[j])) {
-                    str[i] = toupper(check[(j - 5 + 26) % 26]);
-                    break; // หยุดลูป j ทันทีหลังเปลี่ยนตัวอักษรเสร็จ
-                } else if (str[i] == check[j]) {
-                    str[i] = check[(j - 5 + 26) % 26];
-                    break; // หยุดลูป j ทันทีหลังเปลี่ยนตัวอักษรเสร็จ
-                }
+    char str[27] = "abxypqrmncedkljoshtufvzgwi", check[201];
+    scanf("%[^\n]", check);
+    int i = 0;
+    while (check[i] != '\0') {
+        int num = 0;
+        if (check[i] == ' ') {
+            i++;
+            continue;
+        }
+        for (int j = 0; str[j] != '\0'; j++) {
+            if (str[j] == tolower(check[i])) {
+                num = j;
+                break;
             }
         }
-        printf("%s\n", str);
-    }
-    
+        num = (num - 5 + 26) % 26;
+        if (check[i] == toupper(check[i])) {
+            check[i] = toupper(str[num]);
+        } else {
+            check[i] = str[num];
+        } i++;
+    } printf("%s", check);
     return 0;
 }

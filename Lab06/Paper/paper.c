@@ -1,37 +1,42 @@
 #include <stdio.h>
-#include <stdlib.h>
+
+int power(int n, int ex);
+int checkNum(char num);
+int tonum (char str[]);
 
 int main() {
-    char size1[10], size2[10];
-    int num1 = 0, num2 = 0;
-
-    // รับค่าสตริง 2 ข้อความ
-    if (scanf("%s %s", size1, size2) != 2) return 0;
-
-    // แปลงขนาดที่ 1 เป็นตัวเลข (เริ่มวนลูปตั้งแต่ index 1 เพื่อข้ามอักษรตัวแรก)
-    for (int i = 1; size1[i] != '\0'; i++) {
-        if (size1[i] >= '0' && size1[i] <= '9') {
-            num1 = num1 * 10 + (size1[i] - '0');
-        }
-    }
-
-    // แปลงขนาดที่ 2 เป็นตัวเลข
-    for (int i = 1; size2[i] != '\0'; i++) {
-        if (size2[i] >= '0' && size2[i] <= '9') {
-            num2 = num2 * 10 + (size2[i] - '0');
-        }
-    }
-
-    // คำนวณผลต่างของขนาด
-    int diff = num1 - num2;
-    if (diff < 0) {
-        diff = -diff; // ปรับให้เป็นค่าบวก
-    }
-
-    // คำนวณ 2^diff ด้วย Bitwise Shift (1LL << diff)
-    long long result = 1LL << diff;
-
-    printf("%lld\n", result);
-
+    char size1[4], size2[4];
+    scanf("%s %s", size1, size2);
+    int num1 = tonum(size1), num2 = tonum(size2);
+    printf("%d", power(2, num2 - num1));
     return 0;
+}
+
+int power(int n, int ex) {
+    int result = 1;
+    for (int i = 1; i <= ex; i++) {
+        result *= n;
+    } return result;
+}
+
+int checkNum(char num) {
+    char check[11] = "0123456789";
+    for (int i = 0; i < 10; i++) {
+        if (num == check[i]) {
+            return i;
+        }
+    }
+}
+
+int tonum (char str[]) {
+    int num = 0;
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (str[i] == 'A') {
+            continue;
+        }
+        if (num) {
+            num = num * 10 + checkNum(str[i]);
+        } 
+        num += checkNum(str[i]);
+    } return num;
 }
